@@ -81,7 +81,7 @@
 # $ nix search wget
 	environment.systemPackages = with pkgs; [
 		home-manager
-		gh
+			gh
 			vim
 			wget
 			git
@@ -89,7 +89,7 @@
 			waybar
 			(waybar.overrideAttrs (oldAttrs: {mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];}))
 			wezterm
-			dolphin
+			nemo
 			rofi-wayland
 			networkmanagerapplet
 			swww
@@ -127,6 +127,29 @@
 			lua-language-server
 			xclip
 			wl-clipboard
+			rust-analyzer
+			nil # Nix LSP
+			lua-language-server
+			pyright
+			bash-language-server
+			jdt-language-server # Java
+			vscode-langservers-extracted # HTML, CSS, JSON, JavaScript LSP
+			stylua # Lua formatter
+			ruff # Python linter
+			black # Python formatter
+			shellcheck # Bash linter
+			shfmt # Bash formatter
+			clang-tools 
+			vesktop
+			xdg-utils
+			xwayland
+			gh
+			dig
+			nmap
+			localsend
+			pqiv
+			cargo-watch
+			noto-fonts
 			];
 
 	fonts.packages = with pkgs; [
@@ -151,7 +174,7 @@
 	services.openssh.enable = true;
 
 # Open ports in the firewall.
-	networking.firewall.allowedTCPPorts = [ 22 ];
+	networking.firewall.allowedTCPPorts = [ 22 53317 ];
 # networking.firewall.allowedUDPPorts = [ ... ];
 # Or disable the firewall altogether.
 # networking.firewall.enable = false;
