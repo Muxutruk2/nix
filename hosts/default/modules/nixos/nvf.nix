@@ -1,0 +1,243 @@
+{...}: {
+  imports = [];
+
+  programs.nvf = {
+    enable = true;
+
+    settings.vim = {
+      vimAlias = true;
+      viAlias = true;
+      withNodeJs = true;
+
+      options = {
+        tabstop = 2;
+        shiftwidth = 2;
+        wrap = false;
+      };
+
+      keymaps = [
+        {
+          key = "<leader>nh";
+          mode = ["n"];
+          action = ":nohl<CR>";
+          desc = "Clear search highlights";
+        }
+        {
+          key = "<leader>ff";
+          mode = ["n"];
+          action = "<cmd>Telescope find_files<cr>";
+          desc = "Search files by name";
+        }
+        {
+          key = "<leader>lg";
+          mode = ["n"];
+          action = "<cmd>Telescope live_grep<cr>";
+          desc = "Search files by contents";
+        }
+        {
+          key = "<leader>fe";
+          mode = ["n"];
+          action = "<cmd>Neotree toggle<cr>";
+          desc = "File browser toggle";
+        }
+        {
+          mode = "n";
+          key = "<Up>";
+          action = "<NOP>";
+        }
+        {
+          mode = "n";
+          key = "<Down>";
+          action = "<NOP>";
+        }
+        {
+          mode = "n";
+          key = "<Left>";
+          action = "<NOP>";
+        }
+        {
+          mode = "n";
+          key = "<Right>";
+          action = "<NOP>";
+        }
+
+        {
+          mode = "i";
+          key = "<Up>";
+          action = "<NOP>";
+        }
+        {
+          mode = "i";
+          key = "<Down>";
+          action = "<NOP>";
+        }
+        {
+          mode = "i";
+          key = "<Left>";
+          action = "<NOP>";
+        }
+        {
+          mode = "i";
+          key = "<Right>";
+          action = "<NOP>";
+        }
+
+        {
+          mode = "v";
+          key = "<Up>";
+          action = "<NOP>";
+        }
+        {
+          mode = "v";
+          key = "<Down>";
+          action = "<NOP>";
+        }
+        {
+          mode = "v";
+          key = "<Left>";
+          action = "<NOP>";
+        }
+        {
+          mode = "v";
+          key = "<Right>";
+          action = "<NOP>";
+        }
+      ];
+
+      theme = {
+        enable = true;
+        name = "gruvbox";
+        style = "dark";
+        transparent = true;
+      };
+
+      telescope.enable = true;
+
+      spellcheck = {
+        enable = true;
+      };
+
+      lsp = {
+        formatOnSave = true;
+        lspkind.enable = false;
+        lightbulb.enable = true;
+        lspsaga.enable = false;
+        trouble.enable = true;
+        lspSignature.enable = true;
+        otter-nvim.enable = false;
+        lsplines.enable = false;
+        nvim-docs-view.enable = false;
+      };
+
+      languages = {
+        enableLSP = true;
+        enableFormat = true;
+        enableTreesitter = true;
+        enableExtraDiagnostics = true;
+
+        nix.enable = true;
+        rust = {
+          enable = true;
+          lsp = {
+            enable = true;
+          };
+        };
+        clang.enable = true;
+        zig.enable = true;
+        python.enable = true;
+        markdown.enable = true;
+        ts.enable = true;
+        html.enable = true;
+      };
+
+      visuals = {
+        nvim-web-devicons.enable = true;
+        nvim-cursorline.enable = true;
+        cinnamon-nvim.enable = true;
+        fidget-nvim.enable = true;
+
+        highlight-undo.enable = true;
+        indent-blankline.enable = true;
+      };
+
+      statusline = {
+        lualine = {
+          enable = true;
+          theme = "gruvbox";
+        };
+      };
+
+      autopairs.nvim-autopairs.enable = true;
+
+      autocomplete.nvim-cmp.enable = true;
+      snippets.luasnip.enable = true;
+
+      tabline = {
+        nvimBufferline.enable = true;
+      };
+
+      treesitter.context.enable = true;
+
+      binds = {
+        whichKey.enable = true;
+        cheatsheet.enable = true;
+      };
+
+      git = {
+        enable = true;
+        gitsigns.enable = true;
+        gitsigns.codeActions.enable = false; # throws an annoying debug message
+      };
+
+      projects.project-nvim.enable = true;
+      dashboard.dashboard-nvim.enable = true;
+
+      filetree.neo-tree.enable = true;
+
+      notify = {
+        nvim-notify.enable = true;
+        nvim-notify.setupOpts.background_colour = "#202020";
+      };
+
+      utility = {
+        ccc.enable = false;
+        vim-wakatime.enable = false;
+        icon-picker.enable = true;
+        surround.enable = true;
+        diffview-nvim.enable = true;
+        motion = {
+          hop.enable = true;
+          leap.enable = true;
+          precognition.enable = false;
+        };
+
+        images = {
+          image-nvim.enable = false;
+        };
+      };
+
+      ui = {
+        borders.enable = true;
+        noice.enable = true;
+        colorizer.enable = true;
+        illuminate.enable = true;
+        breadcrumbs = {
+          enable = false;
+          navbuddy.enable = false;
+        };
+        smartcolumn = {
+          enable = false;
+        };
+        fastaction.enable = true;
+      };
+
+      session = {
+        nvim-session-manager.enable = false;
+      };
+
+      comments = {
+        comment-nvim.enable = true;
+      };
+    };
+  };
+}
