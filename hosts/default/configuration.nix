@@ -5,9 +5,6 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    inputs.home-manager.nixosModules.home-manager
-    # inputs.nvf.nixosModules.default
-    # ./modules/nixos/nvf.nix
   ];
 
   hardware.graphics.enable = true;
@@ -65,8 +62,6 @@
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
-  nixpkgs.config.allowUnfree = true;
-
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # System Utilities
@@ -74,13 +69,13 @@
     glib
     git
     grc
-    home-manager
     lazygit
     networkmanagerapplet
     openssl
     pciutils
     pkg-config
     wget
+    htop
 
     # Terminal and Shell Utilities
     bat
@@ -111,6 +106,7 @@
     hyprland
     hyprpaper
     hyprpolkitagent
+    hyprlock
     waybar
 
     # Wayland and GUI Utilities
@@ -122,6 +118,7 @@
     qt6ct
     rofi-wayland
     slurp
+    wf-recorder
     swww
     xdg-desktop-portal
     xdg-desktop-portal-hyprland
@@ -132,16 +129,18 @@
     libsForQt5.breeze-gtk
     libsForQt5.qt5ct
     libsForQt5.qtstyleplugin-kvantum
+    poweralertd
+    upower
 
     # Audio and Media Tools
     flameshot
     libnotify
     obs-studio
-    obs-studio-plugins.wlrobs
     playerctl
     pqiv
     vlc
     wireplumber
+    pulseaudio
 
     # Browsers and Internet Apps
     firefox
@@ -176,14 +175,16 @@
     # Miscellaneous Tools
     qbittorrent
     sway-contrib.grimshot
+    nix-search-tv
 
     # Development - General Tools
     unzip
     nil
-    nixfmt
+    nixfmt-classic
     shellcheck
     shfmt
     vscode-langservers-extracted
+    caddy
 
     # Development - C and C++
     autoconf
@@ -205,11 +206,10 @@
     valgrind
 
     # Development - Rust
-    cargo
-    cargo-watch
+    rust-bin.nightly.latest.default
     rust-analyzer
     rustfmt
-    rustup
+    clippy
 
     # Development - Python
     black
@@ -219,6 +219,9 @@
 
     # Development - Java
     jdt-language-server
+
+    # Jinja
+    ansible-language-server
 
     # Development - Lua
     lua-language-server
@@ -230,6 +233,8 @@
     # Development - Bash
     bash-language-server
 
+    # Development - HTML Templates
+    djhtml
   ];
 
   fonts.packages = with pkgs; [
@@ -241,9 +246,10 @@
   fonts.fontconfig.enable = true;
 
   environment.variables = {
-    GTK_THEME = "Catppuccin-Mocha-Standard-Mauve-Dark";
+    GTK_THEME =
+      "catppuccin-mocha-mauve-standard+default"; 
     QT_QPA_PLATFORMTHEME = "qt5ct";
-    QT_STYLE_OVERRIDE = "Catppuccin-Mocha";
+    QT_STYLE_OVERRIDE = "Catppuccin-Mocha"; 
     GDK_SCALE = "1";
   };
 
@@ -252,6 +258,7 @@
   documentation.dev.enable = true;
   documentation.man.generateCaches = false;
 
+  services.upower.enable = true;
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
@@ -268,4 +275,20 @@
   # networking.firewall.enable = false;
 
   system.stateVersion = "25.05"; # Did you read the comment?
+
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+
+    configPackages = [
+      (pkgs.writeTextDir "share/xdg-desktop-portal/portals.conf" ''
+        [preferred]
+        default=*
+        screencast=hyprland
+        remote-desktop=hyprland
+        session=hyprland
+      '')
+    ];
+    };
 }

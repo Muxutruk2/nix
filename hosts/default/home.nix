@@ -8,19 +8,18 @@
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
-  home.packages = with pkgs; [ dconf papirus-folders ];
+  home.packages = with pkgs; [ dconf papirus-folders catppuccin-gtk yazi ];
 
   home.sessionVariables = { };
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
-      gtk-theme = lib.mkForce "Catppuccin-Macchiato-Standard-Blue-Dark";
+      gtk-theme = lib.mkForce "catppuccin-mocha-sapphire-standard+default";
       color-scheme = "prefer-dark";
     };
 
-    # For Gnome shell
     "org/gnome/shell/extensions/user-theme" = {
-      name = "Catppuccin-Macchiato-Standard-Blue-Dark";
+      name = "catppuccin-mocha-sapphire-standard+default";
     };
   };
 
@@ -34,25 +33,26 @@
   in {
     enable = true;
 
-    theme = {
-      name = "catppuccin-mocha-mauve-standard";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ "mauve" ];
-        variant = "mocha";
-      };
-    };
-
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.catppuccin-papirus-folders.override {
         flavor = "mocha";
-        accent = "mauve";
+        accent = "sapphire";
       };
     };
 
     gtk3.extraConfig = gtk-extra-conf;
     gtk4.extraConfig = gtk-extra-conf;
   };
-}
 
+  home.sessionVariables = {
+    GTK_THEME = "catppuccin-mocha-sapphire-standard+default";
+  };
+
+  services.poweralertd = {
+    enable = true;
+    extraArgs = [ "-s" "-S" ];
+  };
+
+}
 # vim: set shiftwidth=2 tabstop=2 :
